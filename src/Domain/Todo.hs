@@ -1,48 +1,50 @@
 module Domain.Todo
     (
-       Todo(..)
+    -- Types
+      Todo(..)
     , TodoId
     , TodoName
-    , TodoTask
+    , TodoDesc
     , TodoStatus
     , rawTodoName
-    , rawTodoTask
+    , rawTodoDesc
     , mkTodoName
     , mkTodoTask
     , mkTodoStatus
     , mkTodo
     -- Ports
-    ,  TodoRepo(..)
+    , TodoRepo(..)
     -- Use Case
-    ,  createTodo
-    ,  getTodos
-    ,  getTodoById
+    , createTodo
+    , getTodos
+    , getTodoById
+    ,
     ) where
 
 import           ClassyPrelude
 
 type TodoId = Int
 newtype TodoName = TodoName { todoNameRaw :: Text } deriving (Show, Eq, Ord)
-newtype TodoTask = TodoTask { todoTaskRaw :: Text } deriving (Show, Eq, Ord)
+newtype TodoDesc = TodoDesc { todoDescRaw :: Text } deriving (Show, Eq, Ord)
 data TodoStatus = New | Working | Done deriving (Show, Eq, Ord)
 
 data Todo = Todo
     { name   :: TodoName
-    , task   :: TodoTask
+    , task   :: TodoDesc
     , status :: TodoStatus
     } deriving (Show, Eq, Ord)
 
 rawTodoName :: TodoName -> Text
 rawTodoName = todoNameRaw
 
-rawTodoTask :: TodoTask -> Text
-rawTodoTask = todoTaskRaw
+rawTodoDesc :: TodoDesc -> Text
+rawTodoDesc = todoDescRaw
 
 mkTodoName :: Text -> TodoName
 mkTodoName = TodoName
 
-mkTodoTask :: Text -> TodoTask
-mkTodoTask = TodoTask
+mkTodoTask :: Text -> TodoDesc
+mkTodoTask = TodoDesc
 
 mkTodoStatus :: Text -> TodoStatus
 mkTodoStatus t =

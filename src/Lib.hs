@@ -25,14 +25,13 @@ run state =
 
 action :: App ()
 action = do
-    createTodo (mkTodo "coding" "coding haskell until bored." "new")
     putStrLn "Enter todo name: "
     tName <- getLine
     putStrLn "Enter todo description: "
     tDesc <- getLine
     createTodo (mkTodo tName tDesc "new")
     todos <- getTodos
-    let prettyTodos = map (\i -> show (fst i) <> " - " <> (unpack . rawTodoName . name . snd $ i) <> " " <> (unpack . rawTodoTask . task . snd $ i)) todos
+    let prettyTodos = map (\i -> show (fst i) <> " - " <> (unpack . rawTodoName . name . snd $ i) <> " | " <> (unpack . rawTodoDesc . task . snd $ i)) todos
     mapM_ print $ reverse prettyTodos
     action
 
